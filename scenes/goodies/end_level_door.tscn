@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bjki4ggea7ncg"]
+
+[ext_resource type="Script" uid="uid://bp7o7cv0xf5o1" path="res://scenes/goodies/end_level_door.gd" id="1_ksn3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
+
+[node name="EndLevelDoor" type="Area2D" unique_id=1344880817]
+scale = Vector2(1, 2.0799994)
+script = ExtResource("1_ksn3h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502783954]
+shape = SubResource("RectangleShape2D_jvmx5")
+debug_color = Color(0.3783598, 0.1670847, 0.0931273, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 
 const GRAVITY := 1000.0
-const SPEED := 200.0
+const SPEED := 350.0
 const JUMP_VELOCITY := -600.0
-const ACCELERATION := 150
+const ACCELERATION := 200
 const DECELERATION := 1500
 const AIR_ACCELERATION := 1500.0
 const GROUND_DECELERATION := 2000.0
