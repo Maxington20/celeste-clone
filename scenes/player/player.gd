@@ -5,17 +5,22 @@ const GRAVITY := 1000.0
 const SPEED := 200.0
 const JUMP_VELOCITY := -600.0
 const ACCELERATION := 150
-const DECELERATION := 500
+const DECELERATION := 1500
 const AIR_ACCELERATION := 1500.0
+const GROUND_DECELERATION := 2000.0
+const AIR_DECELERATION := 300.0
 const COYOTE_TIME := 0.1
 const JUMP_BUFFER_TIME := 0.1
 const WALL_SLIDE_SPEED := 250.0
 const WALL_JUMP_PUSH := 300.0
+const TURN_ACCELERATION := 2000.0
+const DASH_SPEED := 1000.0
 
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var jump_cut := false
 var jump_released := false
+var air_dash_available := true
 
 
 func _physics_process(delta: float) -> void:
@@ -25,10 +30,21 @@ func _physics_process(delta: float) -> void:
 	# Coyote time and gravity
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
+		air_dash_available = true
 	else:
 		coyote_timer -= delta
 		velocity.y += GRAVITY * delta
+		
+	if is_on_wall():
+		air_dash_available = true
 	
+	if Input.is_action_just_pressed("dash") and air_dash_available:
+		var dash_direction := Input.get_axis("move_left", "move_right")
+
+		if dash_direction != 0:
+			velocity.x = dash_direction * DASH_SPEED
+			velocity.y = 0
+			air_dash_available = false	
 	
 	# Remember a jump press for a short time
 	if Input.is_action_just_pressed("jump"):
@@ -79,7 +95,6 @@ func _physics_process(delta: float) -> void:
 	# Horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
 	
-	# Don't immediately overwrite the horizontal push from a wall jump
 	if !wall_jump_this_frame:
 		if direction != 0:
 			
@@ -87,6 +102,8 @@ func _physics_process(delta: float) -> void:
 			
 			if !is_on_floor():
 				acceleration = AIR_ACCELERATION
+			elif sign(direction) != sign(velocity.x) and velocity.x != 0:
+				acceleration = TURN_ACCELERATION
 			
 			velocity.x = move_toward(
 				velocity.x,
@@ -94,10 +111,15 @@ func _physics_process(delta: float) -> void:
 				acceleration * delta
 			)
 		else:
+			var deceleration = GROUND_DECELERATION
+			
+			if !is_on_floor():
+				deceleration = AIR_ACCELERATION
+			
 			velocity.x = move_toward(
 				velocity.x,
 				0,
-				DECELERATION * delta
+				deceleration * delta
 			)
 	
 	
