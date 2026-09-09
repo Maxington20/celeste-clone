@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bdel80kb5nbkk"]
+
+[ext_resource type="Script" uid="uid://nfyoye0i25o3" path="res://scenes/replays/ghost_replay.gd" id="1_jp85b"]
+[ext_resource type="Texture2D" uid="uid://6w623kfplqu6" path="res://icon.svg" id="2_vov4e"]
+
+[node name="GhostReplay" type="Node2D" unique_id=88954455]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_jp85b")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=6504040]
+texture = ExtResource("2_vov4e")
