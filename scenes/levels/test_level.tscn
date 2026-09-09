@@ -7,6 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
 size = Vector2(603.75, 7.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljn2g"]
+size = Vector2(20, 574)
+
 [node name="TestLevel" type="Node2D" unique_id=1559134291]
 
 [node name="Player" parent="." unique_id=114236942 instance=ExtResource("1_jbqir")]
@@ -19,3 +22,18 @@ physics_material_override = SubResource("PhysicsMaterial_mp7tn")
 position = Vector2(302.125, 565)
 shape = SubResource("RectangleShape2D_jvmx5")
 debug_color = Color(0.39442292, 0.20223829, 0.021060862, 0.41960785)
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=594720408]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1194110788]
+position = Vector2(9, 281)
+shape = SubResource("RectangleShape2D_ljn2g")
+debug_color = Color(0.3372549, 0.25882354, 0.18039216, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=1095134074]
+position = Vector2(585, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1967990596]
+position = Vector2(9, 281)
+shape = SubResource("RectangleShape2D_ljn2g")
+debug_color = Color(0.3372549, 0.25882354, 0.18039216, 1)
