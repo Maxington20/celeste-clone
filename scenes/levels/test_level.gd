@@ -20,6 +20,7 @@ func _on_hazard_body_hit_hazard(body: Node2D) -> void:
 
 func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	RunHistory.complete_run()
+	player.visible = false
 	spawn_ghosts()
 	print("yay! onto the next level")
 
@@ -34,4 +35,4 @@ func spawn_ghosts() -> void:
 	if !RunHistory.successful_run.is_empty():
 		var ghost = GHOST_REPLAY_SCENE.instantiate()
 		add_child(ghost)
-		ghost.setup(RunHistory.successful_run)
+		ghost.setup(RunHistory.successful_run, true)
