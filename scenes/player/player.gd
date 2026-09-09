@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall():
 		air_dash_available = true
 	
-	if Input.is_action_just_pressed("dash") and air_dash_available:
+	if Input.is_action_just_pressed("dash") and air_dash_available and !is_on_floor():
 		var dash_direction := Input.get_axis("move_left", "move_right")
 
 		if dash_direction != 0:

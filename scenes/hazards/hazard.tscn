@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dlx317q6sjdvo"]
+
+[ext_resource type="Script" uid="uid://b7cwn5ebgs266" path="res://scenes/hazards/hazard.gd" id="1_idyoq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
+size = Vector2(1, 5)
+
+[node name="Hazard" type="Area2D" unique_id=246995794]
+scale = Vector2(1, 3.039999)
+script = ExtResource("1_idyoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1128491302]
+shape = SubResource("RectangleShape2D_jvmx5")
+debug_color = Color(0.5900334, 0.6890016, 1, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
