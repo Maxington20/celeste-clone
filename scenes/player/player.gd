@@ -15,12 +15,15 @@ const WALL_SLIDE_SPEED := 250.0
 const WALL_JUMP_PUSH := 300.0
 const TURN_ACCELERATION := 2000.0
 const DASH_SPEED := 1000.0
+const WALL_COYOTE_TIME := 0.1
 
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var jump_cut := false
 var jump_released := false
 var air_dash_available := true
+var wall_coyote_timer := 0.0
+var last_wall_normal := Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +40,11 @@ func _physics_process(delta: float) -> void:
 		
 	if is_on_wall():
 		air_dash_available = true
+		wall_coyote_timer = WALL_COYOTE_TIME
+		last_wall_normal = get_wall_normal()
+	
+	else:
+		wall_coyote_timer -= delta
 	
 	if Input.is_action_just_pressed("dash") and air_dash_available and !is_on_floor():
 		var dash_direction := Input.get_axis("move_left", "move_right")
@@ -60,12 +68,11 @@ func _physics_process(delta: float) -> void:
 	
 	
 	# Wall jump
-	if is_on_wall() and Input.is_action_just_pressed("jump"):
-		var wall_normal := get_wall_normal()
-		
+	if wall_coyote_timer > 0 and Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
-		velocity.x = wall_normal.x * WALL_JUMP_PUSH
+		velocity.x = last_wall_normal.x * WALL_JUMP_PUSH
 		
+		wall_coyote_timer = 0
 		jump_buffer_timer = 0
 		jump_cut = false
 		jump_released = false
