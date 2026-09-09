@@ -22,7 +22,6 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	RunHistory.complete_run()
 	player.visible = false
 	spawn_ghosts()
-	print("yay! onto the next level")
 
 
 func spawn_ghosts() -> void:

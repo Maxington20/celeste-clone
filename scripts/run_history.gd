@@ -16,7 +16,6 @@ func record_position(position: Vector2) -> void:
 func fail_run() -> void:
 	failed_runs.append(current_run.duplicate())
 	current_run.clear()
-	print(failed_runs.size())
 	
 	
 func complete_run() -> void:
