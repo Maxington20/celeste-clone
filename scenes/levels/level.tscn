@@ -67,5 +67,24 @@ position = Vector2(-792, 584.00006)
 [node name="EndLevelDoor" parent="." unique_id=1344880817 instance=ExtResource("4_mbbpy")]
 position = Vector2(131, 519)
 
+[node name="HUD" type="CanvasLayer" parent="." unique_id=436610356]
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD" unique_id=2134112150]
+offset_right = 40.0
+offset_bottom = 40.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(16, 16)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer" unique_id=793436577]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=913319933]
+layout_mode = 2
+text = "Time: 0.00 s"
+
+[node name="DeathLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=1207496839]
+layout_mode = 2
+text = "Deaths: 0"
+
 [connection signal="body_hit_hazard" from="Hazards/Hazard" to="." method="_on_hazard_body_hit_hazard"]
 [connection signal="exit_to_next_level" from="EndLevelDoor" to="." method="_on_end_level_door_exit_to_next_level"]

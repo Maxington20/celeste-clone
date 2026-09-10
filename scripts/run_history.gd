@@ -44,8 +44,5 @@ func clear_history() -> void:
 	current_run.clear()
 	level_death_count = 0
 	run_elapsed_time = 0.0
-
-
-		
-		
-		
+	
+	
