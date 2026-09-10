@@ -4,7 +4,6 @@ const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
 
 @onready var player: CharacterBody2D = $Player
 
-
 func _ready() -> void:
 	RunHistory.start_run()
 	
@@ -22,6 +21,8 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	RunHistory.complete_run()
 	player.visible = false
 	spawn_ghosts()
+	print("level death count ",RunHistory.level_death_count)
+	print("%.2f" % RunHistory.run_elapsed_time + " seconds")
 
 
 func spawn_ghosts() -> void:
@@ -33,5 +34,5 @@ func spawn_ghosts() -> void:
 	
 	if !RunHistory.successful_run.is_empty():
 		var ghost = GHOST_REPLAY_SCENE.instantiate()
-		add_child(ghost)
+		$Ghosts.add_child(ghost)
 		ghost.setup(RunHistory.successful_run, true)
