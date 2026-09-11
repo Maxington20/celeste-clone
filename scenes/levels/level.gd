@@ -2,7 +2,7 @@ extends Node2D
 
 const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
 
-@export var level_id: int = 1
+@export var level_id: int = 0
 
 @onready var player: CharacterBody2D = $Player
 @onready var death_count_label: Label = $HUD/MarginContainer/VBoxContainer/DeathLabel

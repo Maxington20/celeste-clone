@@ -2,16 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr5cpxxyjxslm" path="res://scenes/levels/level.gd" id="1_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://d3cx758c7e1mg" path="res://scenes/player/player.tscn" id="2_urvlt"]
-[ext_resource type="PackedScene" uid="uid://dlx317q6sjdvo" path="res://scenes/hazards/hazard.tscn" id="3_d4w6o"]
 [ext_resource type="PackedScene" uid="uid://bjki4ggea7ncg" path="res://scenes/goodies/end_level_door.tscn" id="4_mbbpy"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mp7tn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
-size = Vector2(603.75, 7.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljn2g"]
-size = Vector2(20, 574)
 
 [node name="Level" type="Node2D" unique_id=1559134291]
 script = ExtResource("1_xb4v1")
@@ -24,43 +15,7 @@ position = Vector2(-1019, 559)
 
 [node name="Geometry" type="Node2D" parent="." unique_id=982877691]
 
-[node name="Ground" type="StaticBody2D" parent="Geometry" unique_id=1489327332]
-position = Vector2(-766, 596)
-physics_material_override = SubResource("PhysicsMaterial_mp7tn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Ground" unique_id=1070763624]
-shape = SubResource("RectangleShape2D_jvmx5")
-debug_color = Color(0.39442292, 0.20223829, 0.021060862, 0.41960785)
-
-[node name="Ground2" type="StaticBody2D" parent="Geometry" unique_id=2045866499]
-position = Vector2(125.99997, 544)
-scale = Vector2(0.23999816, 1)
-physics_material_override = SubResource("PhysicsMaterial_mp7tn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Ground2" unique_id=321696597]
-shape = SubResource("RectangleShape2D_jvmx5")
-debug_color = Color(0.39442292, 0.20223829, 0.021060862, 0.41960785)
-
-[node name="LeftWall" type="StaticBody2D" parent="Geometry" unique_id=594720408]
-position = Vector2(-191, 272)
-scale = Vector2(1, 0.3200006)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/LeftWall" unique_id=1194110788]
-shape = SubResource("RectangleShape2D_ljn2g")
-debug_color = Color(0.3372549, 0.25882354, 0.18039216, 1)
-
-[node name="RightWall" type="StaticBody2D" parent="Geometry" unique_id=1095134074]
-position = Vector2(-637, -209)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/RightWall" unique_id=1967990596]
-position = Vector2(189, 530)
-shape = SubResource("RectangleShape2D_ljn2g")
-debug_color = Color(0.3372549, 0.25882354, 0.18039216, 1)
-
 [node name="Hazards" type="Node2D" parent="." unique_id=635117761]
-
-[node name="Hazard" parent="Hazards" unique_id=246995794 instance=ExtResource("3_d4w6o")]
-position = Vector2(-792, 584.00006)
 
 [node name="Ghosts" type="Node2D" parent="." unique_id=925238104]
 
@@ -86,5 +41,4 @@ text = "Time: 0.00 s"
 layout_mode = 2
 text = "Deaths: 0"
 
-[connection signal="body_hit_hazard" from="Hazards/Hazard" to="." method="_on_hazard_body_hit_hazard"]
 [connection signal="exit_to_next_level" from="EndLevelDoor" to="." method="_on_end_level_door_exit_to_next_level"]
