@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 RunHistory="*uid://bh6piagddxtm5"
+GameProgress="*uid://uhmpddlk5io"
 
 [display]
 

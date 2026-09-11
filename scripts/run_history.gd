@@ -5,8 +5,6 @@ var successful_run: Array[Vector2] = []
 var current_run: Array[Vector2] = []
 var level_death_count := 0
 var run_elapsed_time := 0.00
-var total_death_count := 0
-var total_elapsed_time := 0.00
 var is_run_active := false
 
 func _physics_process(delta: float) -> void:
@@ -33,8 +31,6 @@ func fail_run() -> void:
 func complete_run() -> void:
 	is_run_active = false
 	successful_run = current_run.duplicate()
-	total_death_count += level_death_count
-	total_elapsed_time += run_elapsed_time
 	current_run.clear()
 	
 

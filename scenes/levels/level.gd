@@ -2,6 +2,8 @@ extends Node2D
 
 const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
 
+@export var level_id: int = 1
+
 @onready var player: CharacterBody2D = $Player
 @onready var death_count_label: Label = $HUD/MarginContainer/VBoxContainer/DeathLabel
 @onready var time_label: Label = $HUD/MarginContainer/VBoxContainer/TimeLabel
@@ -34,7 +36,14 @@ func _on_hazard_body_hit_hazard(body: Node2D) -> void:
 
 
 func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
+	GameProgress.submit_level_result(level_id, RunHistory.run_elapsed_time,RunHistory.level_death_count, RunHistory.current_run)
+	
 	RunHistory.complete_run()
+	
+	var level_record = GameProgress.get_level_record(1)
+	
+	print(level_record.best_run, level_record.best_time, level_record.completed)
+	
 	player.visible = false
 	
 	replay_elapsed_time = 0.0
