@@ -13,6 +13,12 @@ var is_replay_active := false
 
 func _ready() -> void:
 	RunHistory.start_run()
+	var record := GameProgress.get_level_record(1)
+	
+	if record.completed:
+		var ghost = GHOST_REPLAY_SCENE.instantiate()
+		$Ghosts.add_child(ghost)
+		ghost.setup(record.best_run, true)
 	
 
 func _physics_process(delta: float) -> void:
@@ -70,3 +76,6 @@ func spawn_ghosts() -> void:
 		
 func _on_successful_replay_finished() -> void:
 	is_replay_active = false
+	
+	# just for testing. remove when level select and other levels are available
+	get_tree().call_deferred("reload_current_scene")
