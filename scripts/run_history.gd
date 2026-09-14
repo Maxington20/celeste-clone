@@ -1,8 +1,8 @@
 extends Node
 
 var failed_runs: Array[Array] = []
-var successful_run: Array[Vector2] = []
-var current_run: Array[Vector2] = []
+var successful_run: Array[ReplayFrame] = []
+var current_run: Array[ReplayFrame] = []
 var level_death_count := 0
 var run_elapsed_time := 0.00
 var is_run_active := false
@@ -16,8 +16,10 @@ func start_run() -> void:
 	is_run_active = true
 	
 	
-func record_position(position: Vector2) -> void:
-	current_run.append(position)
+func record_frame(position: Vector2, animation: StringName) -> void:
+	current_run.append(
+		ReplayFrame.new(position, animation)
+	)
 	
 	
 func fail_run() -> void:

@@ -13,7 +13,7 @@ var is_replay_active := false
 
 func _ready() -> void:
 	RunHistory.start_run()
-	var record := GameProgress.get_level_record(1)
+	var record := GameProgress.get_level_record(level_id)
 	
 	if record.completed:
 		var ghost = GHOST_REPLAY_SCENE.instantiate()
@@ -24,7 +24,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	if RunHistory.is_run_active:
-		RunHistory.record_position(player.global_position)
+		RunHistory.record_frame(player.global_position, player.animated_sprite.animation)
 		death_count_label.text =  "Deaths: " + str(RunHistory.level_death_count)
 		
 	if is_replay_active:
@@ -46,7 +46,7 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	
 	RunHistory.complete_run()
 	
-	var level_record = GameProgress.get_level_record(1)
+	var level_record = GameProgress.get_level_record(level_id)
 	
 	print(level_record.best_run, level_record.best_time, level_record.completed)
 	
@@ -54,7 +54,6 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	
 	replay_elapsed_time = 0.0
 	is_replay_active = true
-	
 	spawn_ghosts()
 
 

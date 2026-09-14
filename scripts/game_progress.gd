@@ -17,12 +17,12 @@ func submit_level_result(
 	level_id: int,
 	run_time: float,
 	death_count: int,
-	run_positions: Array[Vector2]
+	run_positions: Array[ReplayFrame]
 ) -> void:
 	var record := get_level_record(level_id)
 	
 	total_death_count += death_count
-	total_elapsed_time =+ run_time
+	total_elapsed_time += run_time
 	
 	
 	

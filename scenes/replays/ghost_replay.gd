@@ -2,24 +2,43 @@ extends Node2D
 
 signal replay_finished
 
-var positions: Array[Vector2] = []
+@onready var animation_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var frames: Array[ReplayFrame] = []
 var frame_index := 0
 var successful := false
 
-func setup(run_positions: Array[Vector2], was_successful: bool = false) -> void:
-	positions = run_positions.duplicate()
+
+func setup(run_frames: Array[ReplayFrame], was_successful: bool = false) -> void:
+	frames = run_frames.duplicate()
 	frame_index = 0
 	successful = was_successful
-	
-func _physics_process(delta: float) -> void:
-	
-	if frame_index >= positions.size():
-		
+
+	if !frames.is_empty():
+		global_position = frames[0].position
+
+
+func _physics_process(_delta: float) -> void:
+	if frame_index >= frames.size():
 		if successful:
 			replay_finished.emit()
+			set_physics_process(false)
 		else:
 			queue_free()
+
 		return
-		
-	global_position = positions[frame_index]
+
+	var replay_frame := frames[frame_index]
+
+	global_position = replay_frame.position
+	animation_sprite.play(replay_frame.animation)
+
+	# Match your player's dash sprite offset
+	if replay_frame.animation == &"dash_left":
+		animation_sprite.position.x = 6
+	elif replay_frame.animation == &"dash_right":
+		animation_sprite.position.x = -6
+	else:
+		animation_sprite.position.x = 0
+
 	frame_index += 1
