@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dl8f5ceh5sbwg"]
+
+[ext_resource type="Script" uid="uid://cr7dpq876khk2" path="res://scenes/enemies/walker.gd" id="1_2jm2j"]
+[ext_resource type="Texture2D" uid="uid://6w623kfplqu6" path="res://icon.svg" id="1_a0451"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
+size = Vector2(64, 64)
+
+[node name="Walker" type="CharacterBody2D" unique_id=2042954429]
+script = ExtResource("1_2jm2j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=653501757]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_a0451")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1276585494]
+shape = SubResource("RectangleShape2D_jvmx5")

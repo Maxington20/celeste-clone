@@ -17,6 +17,8 @@ position = Vector2(-1019, 559)
 
 [node name="Hazards" type="Node2D" parent="." unique_id=635117761]
 
+[node name="Enemies" type="Node2D" parent="." unique_id=1830744566]
+
 [node name="Ghosts" type="Node2D" parent="." unique_id=925238104]
 
 [node name="EndLevelDoor" parent="." unique_id=1344880817 instance=ExtResource("4_mbbpy")]
