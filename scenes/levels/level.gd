@@ -11,6 +11,7 @@ const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
 var replay_elapsed_time := 0.0
 var is_replay_active := false
 
+
 func _ready() -> void:
 	RunHistory.start_run()
 	var record := GameProgress.get_level_record(level_id)
