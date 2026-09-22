@@ -16,7 +16,7 @@ size = Vector2(20, 574)
 level_id = 1
 
 [node name="Camera2D" parent="." index="0" unique_id=603920288]
-position = Vector2(-222, 126)
+position = Vector2(-255, 146)
 drag_vertical_enabled = true
 
 [node name="CameraBounds" parent="." index="1" unique_id=2122270818]

@@ -9,7 +9,7 @@
 script = ExtResource("1_xb4v1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=603920288]
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 script = ExtResource("2_xb4v1")
 
