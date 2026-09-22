@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cr5cpxxyjxslm" path="res://scenes/levels/level.gd" id="1_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://d3cx758c7e1mg" path="res://scenes/player/player.tscn" id="2_urvlt"]
+[ext_resource type="Script" uid="uid://24q6e53w05on" path="res://scenes/levels/camera_controller.gd" id="2_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://bjki4ggea7ncg" path="res://scenes/goodies/end_level_door.tscn" id="4_mbbpy"]
 
 [node name="Level" type="Node2D" unique_id=1559134291]
 script = ExtResource("1_xb4v1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=603920288]
-zoom = Vector2(0.6, 0.6)
+zoom = Vector2(0.75, 0.75)
+position_smoothing_enabled = true
+script = ExtResource("2_xb4v1")
 
 [node name="Player" parent="." unique_id=114236942 instance=ExtResource("2_urvlt")]
 position = Vector2(-1019, 559)

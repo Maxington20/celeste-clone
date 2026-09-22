@@ -13,6 +13,7 @@ var is_replay_active := false
 
 
 func _ready() -> void:
+	$Camera2D.set_target(player)
 	RunHistory.start_run()
 	var record := GameProgress.get_level_record(level_id)
 	
@@ -46,6 +47,7 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	GameProgress.submit_level_result(level_id, RunHistory.run_elapsed_time,RunHistory.level_death_count, RunHistory.current_run)
 	RunHistory.complete_run()
 	
+	#what did i have this here for? keeping it just in case
 	var level_record = GameProgress.get_level_record(level_id)
 	
 	player.visible = false
@@ -68,6 +70,7 @@ func spawn_ghosts() -> void:
 		$Ghosts.add_child(ghost)
 		ghost.setup(RunHistory.successful_run, true)
 		ghost.replay_finished.connect(_on_successful_replay_finished)
+		$Camera2D.set_target(ghost)
 		
 		
 		

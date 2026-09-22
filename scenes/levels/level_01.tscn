@@ -15,6 +15,9 @@ size = Vector2(20, 574)
 [node name="Level01" unique_id=1559134291 instance=ExtResource("1_m802k")]
 level_id = 1
 
+[node name="Camera2D" parent="." index="0" unique_id=603920288]
+drag_vertical_enabled = true
+
 [node name="Ground3" type="StaticBody2D" parent="Geometry" parent_id_path=PackedInt32Array(982877691) index="0" unique_id=1757211027]
 position = Vector2(-766, 596)
 physics_material_override = SubResource("PhysicsMaterial_mp7tn")
