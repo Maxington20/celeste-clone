@@ -1,6 +1,7 @@
 extends Camera2D
 
-const LOOK_AHEAD_DISTANCE := 150
+const LOOK_AHEAD_DISTANCE_X := 150
+const LOOK_AHEAD_DISTANCE_Y := 200
 const LOOK_AHEAD_SPEED := 300
 
 var target: Node2D
@@ -20,13 +21,13 @@ func _process(_delta: float) -> void:
 		
 		look_ahead_x = move_toward(
 			look_ahead_x,
-			movement_x * LOOK_AHEAD_DISTANCE,
+			movement_x * LOOK_AHEAD_DISTANCE_X,
 			LOOK_AHEAD_SPEED * _delta
 		)
 		
 		look_ahead_y = move_toward(
 			look_ahead_y,
-			movement_y * LOOK_AHEAD_DISTANCE,
+			movement_y * LOOK_AHEAD_DISTANCE_Y,
 			LOOK_AHEAD_SPEED * _delta
 		)
 		

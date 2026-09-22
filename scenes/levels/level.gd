@@ -7,13 +7,21 @@ const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
 @onready var player: CharacterBody2D = $Player
 @onready var death_count_label: Label = $HUD/MarginContainer/VBoxContainer/DeathLabel
 @onready var time_label: Label = $HUD/MarginContainer/VBoxContainer/TimeLabel
+@onready var camera: Camera2D = $Camera2D
+@onready var camera_bounds: ReferenceRect = $CameraBounds
 
 var replay_elapsed_time := 0.0
 var is_replay_active := false
 
 
 func _ready() -> void:
-	$Camera2D.set_target(player)
+	
+	camera.limit_left = int(camera_bounds.position.x)
+	camera.limit_right = int(camera_bounds.position.x + camera_bounds.size.x)
+	camera.limit_top = int(camera_bounds.position.y)
+	camera.limit_bottom = int(camera_bounds.position.y + camera_bounds.size.y)
+	
+	camera.set_target(player)
 	RunHistory.start_run()
 	var record := GameProgress.get_level_record(level_id)
 	
@@ -70,7 +78,7 @@ func spawn_ghosts() -> void:
 		$Ghosts.add_child(ghost)
 		ghost.setup(RunHistory.successful_run, true)
 		ghost.replay_finished.connect(_on_successful_replay_finished)
-		$Camera2D.set_target(ghost)
+		camera.set_target(ghost)
 		
 		
 		

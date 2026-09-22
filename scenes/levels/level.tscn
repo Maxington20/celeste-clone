@@ -13,6 +13,12 @@ zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
 script = ExtResource("2_xb4v1")
 
+[node name="CameraBounds" type="ReferenceRect" parent="." unique_id=2122270818]
+offset_left = -1088.0
+offset_top = -640.0
+offset_right = 1278.0
+offset_bottom = 717.0
+
 [node name="Player" parent="." unique_id=114236942 instance=ExtResource("2_urvlt")]
 position = Vector2(-1019, 559)
 

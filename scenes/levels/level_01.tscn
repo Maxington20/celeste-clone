@@ -16,7 +16,14 @@ size = Vector2(20, 574)
 level_id = 1
 
 [node name="Camera2D" parent="." index="0" unique_id=603920288]
+position = Vector2(-222, 126)
 drag_vertical_enabled = true
+
+[node name="CameraBounds" parent="." index="1" unique_id=2122270818]
+offset_left = -1060.0
+offset_top = -444.0
+offset_right = 662.0
+offset_bottom = 604.0
 
 [node name="Ground3" type="StaticBody2D" parent="Geometry" parent_id_path=PackedInt32Array(982877691) index="0" unique_id=1757211027]
 position = Vector2(-766, 596)
