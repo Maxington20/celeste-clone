@@ -36,3 +36,7 @@ func disable_collision_layers() -> void:
 	$CollisionShape2D.disabled = true
 	$StompArea/CollisionShape2D.disabled = true
 	$DamageArea/CollisionShape2D.disabled = true
+
+
+func _on_damage_area_body_entered(body: Node2D) -> void:
+	body.die()

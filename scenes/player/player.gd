@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+signal player_died
+
 const GRAVITY := 1000.0
 const SPEED := 350.0
 const JUMP_VELOCITY := -600.0
@@ -175,3 +177,7 @@ func animate_player(direction: float) -> void:
 		else:
 			animated_sprite.play("idle_right")
 		animated_sprite.position.x = 0
+		
+		
+func die() -> void:
+	player_died.emit()

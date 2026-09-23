@@ -47,8 +47,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func _on_hazard_body_hit_hazard(body: Node2D) -> void:
-	RunHistory.fail_run()	
-	get_tree().call_deferred("reload_current_scene")
+	player.die()
 
 
 func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
@@ -86,4 +85,9 @@ func _on_successful_replay_finished() -> void:
 	is_replay_active = false
 	
 	# just for testing. remove when level select and other levels are available
+	get_tree().call_deferred("reload_current_scene")
+
+
+func _on_player_player_died() -> void:
+	RunHistory.fail_run()
 	get_tree().call_deferred("reload_current_scene")
