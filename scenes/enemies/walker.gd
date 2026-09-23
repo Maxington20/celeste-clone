@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var move_speed := 100.0
 @export var travel_distance := 100.0
 @export var bounce_velocity := -800
+@export var replay_id: int
 
 var direction := 1.0
 var start_position: Vector2
@@ -39,4 +40,5 @@ func disable_collision_layers() -> void:
 
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	body.die()
+	if body.has_method("die"):
+		body.die()

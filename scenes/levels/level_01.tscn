@@ -51,7 +51,8 @@ shape = SubResource("RectangleShape2D_ljn2g")
 debug_color = Color(0.3372549, 0.25882354, 0.18039216, 1)
 
 [node name="RightWall2" type="StaticBody2D" parent="Geometry" parent_id_path=PackedInt32Array(982877691) index="3" unique_id=1274667192]
-position = Vector2(-637, -209)
+position = Vector2(-643, -209)
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/RightWall2" index="0" unique_id=1247634327]
 position = Vector2(189, 530)
@@ -63,5 +64,9 @@ position = Vector2(-792, 584.00006)
 
 [node name="Walker" parent="Enemies" parent_id_path=PackedInt32Array(1830744566) index="0" unique_id=2042954429 instance=ExtResource("3_2djvx")]
 position = Vector2(-718, 560)
+
+[node name="Walker2" parent="Enemies" parent_id_path=PackedInt32Array(1830744566) index="1" unique_id=813324896 instance=ExtResource("3_2djvx")]
+position = Vector2(-571, 560)
+replay_id = 1
 
 [connection signal="body_hit_hazard" from="Hazards/Hazard2" to="." method="_on_hazard_body_hit_hazard"]
