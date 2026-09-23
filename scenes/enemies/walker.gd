@@ -2,9 +2,7 @@ extends CharacterBody2D
 
 @export var move_speed := 100.0
 @export var travel_distance := 100.0
-
-
-signal body_hit_stomp_area(body: Node2D)
+@export var bounce_velocity := -800
 
 var direction := 1.0
 var start_position: Vector2
@@ -26,7 +24,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_stomp_area_body_entered(body: Node2D) -> void:
-	body_hit_stomp_area.emit(body)
+	call_deferred("disable_collision_layers")
+	body.velocity.y = bounce_velocity
 	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
+	tween.tween_property($Visuals, "scale", Vector2.ZERO, 0.2)
 	await tween.finished
+	queue_free()
+
+
+func disable_collision_layers() -> void:
+	$CollisionShape2D.disabled = true
+	$StompArea/CollisionShape2D.disabled = true
+	$DamageArea/CollisionShape2D.disabled = true
