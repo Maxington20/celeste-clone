@@ -6,7 +6,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
 size = Vector2(64, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljn2g"]
+size = Vector2(63, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp7tn"]
+size = Vector2(64, 58)
+
 [node name="Walker" type="CharacterBody2D" unique_id=2042954429]
+collision_layer = 2
 script = ExtResource("1_2jm2j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=653501757]
@@ -15,3 +22,17 @@ texture = ExtResource("1_a0451")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1276585494]
 shape = SubResource("RectangleShape2D_jvmx5")
+
+[node name="StompArea" type="Area2D" parent="." unique_id=310634744]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea" unique_id=1311437929]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_ljn2g")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=196719948]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1734203169]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_mp7tn")
+
+[connection signal="body_entered" from="StompArea" to="." method="_on_stomp_area_body_entered"]

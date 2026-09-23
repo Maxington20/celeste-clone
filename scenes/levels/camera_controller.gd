@@ -2,7 +2,8 @@ extends Camera2D
 
 const LOOK_AHEAD_DISTANCE_X := 150
 const LOOK_AHEAD_DISTANCE_Y := 200
-const LOOK_AHEAD_SPEED := 300
+const LOOK_AHEAD_SPEED_X := 300
+const LOOK_AHEAD_SPEED_Y := 500
 
 var target: Node2D
 var last_position: Vector2
@@ -22,13 +23,13 @@ func _process(_delta: float) -> void:
 		look_ahead_x = move_toward(
 			look_ahead_x,
 			movement_x * LOOK_AHEAD_DISTANCE_X,
-			LOOK_AHEAD_SPEED * _delta
+			LOOK_AHEAD_SPEED_X * _delta
 		)
 		
 		look_ahead_y = move_toward(
 			look_ahead_y,
 			movement_y * LOOK_AHEAD_DISTANCE_Y,
-			LOOK_AHEAD_SPEED * _delta
+			LOOK_AHEAD_SPEED_Y * _delta
 		)
 		
 		global_position.x = target.global_position.x + look_ahead_x
