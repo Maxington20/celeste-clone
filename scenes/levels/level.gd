@@ -13,13 +13,13 @@ const ENEMY_REPLAY_SCENE := preload("res://scenes/replays/enemy_ghost.tscn")
 
 var replay_elapsed_time := 0.0
 var is_replay_active := false
-var replayable_enemies: Array[Node] = []
+var replayable_objects: Array[Node] = []
 
 
 func _ready() -> void:
 	
 	# get the replay enemies group
-	replayable_enemies = get_tree().get_nodes_in_group("replayable_enemies")
+	replayable_objects = get_tree().get_nodes_in_group("replayable_objects")
 	
 	# get the camera limits based on the level's camera bounds
 	camera.limit_left = int(camera_bounds.position.x)
@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 	if RunHistory.is_run_active:
 		RunHistory.record_frame(player.global_position, player.animated_sprite.animation)
 		
-		for enemy in replayable_enemies:
+		for enemy in replayable_objects:
 			if is_instance_valid(enemy):
 				RunHistory.record_enemey_frame(enemy.replay_id, enemy.global_position, &"")
 		
@@ -114,7 +114,7 @@ func spawn_ghosts() -> void:
 		
 
 func hide_replayable_enemies() -> void:
-	for enemy in replayable_enemies:
+	for enemy in replayable_objects:
 		if is_instance_valid(enemy):
 			enemy.visible = false
 		

@@ -32,7 +32,7 @@ project/assembly_name="celeste-clone"
 
 [global_group]
 
-replayable_enemies=""
+replayable_objects=""
 
 [input]
 
