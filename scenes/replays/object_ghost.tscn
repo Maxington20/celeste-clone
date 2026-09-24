@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cssa3qgwi76ve"]
+
+[ext_resource type="Script" uid="uid://diq614vluhj48" path="res://scenes/replays/object_ghost.gd" id="1_5ktcj"]
+
+[node name="ObjectReplay" type="Node2D" unique_id=1102758254]
+script = ExtResource("1_5ktcj")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=650300460]

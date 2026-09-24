@@ -3,7 +3,7 @@ extends Node
 var failed_runs: Array[RunRecording] = []
 var successful_run: RunRecording
 var current_run: Array[ReplayFrame] = []
-var current_enemy_runs: Dictionary[int, Array ]= {}
+var current_object_runs: Dictionary[int, Array ]= {}
 var level_death_count := 0
 var run_elapsed_time := 0.00
 var is_run_active := false
@@ -22,14 +22,21 @@ func record_frame(position: Vector2, animation: StringName) -> void:
 		ReplayFrame.new(position, animation)
 	)
 
-func record_enemey_frame(id: int, position: Vector2, _animation: StringName) -> void:
-	if !current_enemy_runs.has(id):
-		var frames: Array[ReplayFrame] = []
-		current_enemy_runs[id] = frames
+func record_object_frame(id: int, position: Vector2, _animation: StringName, scale: Vector2, visual_position: Vector2) -> void:
+	if !current_object_runs.has(id):
+		var frames: Array[WorldReplayFrame] = []
+		current_object_runs[id] = frames
 	
-	current_enemy_runs[id].append(
-		ReplayFrame.new(position, _animation)
+	current_object_runs[id].append(
+		WorldReplayFrame.new(
+		position,
+		scale,
+		_animation,
+		visual_position
+		)
 	)
+	
+	
 	
 func fail_run() -> void:
 	is_run_active = false
@@ -38,11 +45,11 @@ func fail_run() -> void:
 	
 	var recording := RunRecording.new()
 	recording.player_frames = current_run.duplicate()
-	recording.enemy_frames = current_enemy_runs.duplicate()
+	recording.object_frames = current_object_runs.duplicate()
 	
 	failed_runs.append(recording)
 	current_run.clear()
-	current_enemy_runs.clear()
+	current_object_runs.clear()
 	
 	
 func complete_run() -> void:
@@ -50,11 +57,11 @@ func complete_run() -> void:
 	
 	var run := RunRecording.new()
 	run.player_frames = current_run.duplicate()
-	run.enemy_frames = current_enemy_runs.duplicate()
+	run.object_frames = current_object_runs.duplicate()
 	
 	successful_run = run
 	current_run.clear()
-	current_enemy_runs.clear()
+	current_object_runs.clear()
 	
 
 func clear_history() -> void:

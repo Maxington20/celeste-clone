@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var travel_distance := 100.0
 @export var bounce_velocity := -800
 @export var replay_id: int
+@export var replay_visual: PackedScene
 
 var direction := 1.0
 var start_position: Vector2

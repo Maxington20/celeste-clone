@@ -1,7 +1,7 @@
 extends Node2D
 
 const GHOST_REPLAY_SCENE := preload("res://scenes/replays/ghost_replay.tscn")
-const ENEMY_REPLAY_SCENE := preload("res://scenes/replays/enemy_ghost.tscn")
+const OBJECT_REPLAY_SCENE := preload("res://scenes/replays/object_ghost.tscn")
 
 @export var level_id: int = 0
 
@@ -14,12 +14,16 @@ const ENEMY_REPLAY_SCENE := preload("res://scenes/replays/enemy_ghost.tscn")
 var replay_elapsed_time := 0.0
 var is_replay_active := false
 var replayable_objects: Array[Node] = []
+var replay_visuals: Dictionary[int, PackedScene] = {}
 
 
 func _ready() -> void:
 	
 	# get the replay enemies group
 	replayable_objects = get_tree().get_nodes_in_group("replayable_objects")
+	
+	for object in replayable_objects:
+		replay_visuals[object.replay_id] = object.replay_visual
 	
 	# get the camera limits based on the level's camera bounds
 	camera.limit_left = int(camera_bounds.position.x)
@@ -42,9 +46,9 @@ func _physics_process(delta: float) -> void:
 	if RunHistory.is_run_active:
 		RunHistory.record_frame(player.global_position, player.animated_sprite.animation)
 		
-		for enemy in replayable_objects:
-			if is_instance_valid(enemy):
-				RunHistory.record_enemey_frame(enemy.replay_id, enemy.global_position, &"")
+		for object in replayable_objects:
+			if is_instance_valid(object):
+				RunHistory.record_object_frame(object.replay_id, object.global_position, &"", object.get_node("Visuals").scale, object.get_node("Visuals").position)
 		
 		death_count_label.text =  "Deaths: " + str(RunHistory.level_death_count)
 		
@@ -63,14 +67,6 @@ func _on_hazard_body_hit_hazard(body: Node2D) -> void:
 
 func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	
-	for enemy_id in RunHistory.current_enemy_runs:
-		print(
-			"Enemy ", enemy_id,
-			": ",
-			RunHistory.current_enemy_runs[enemy_id].size(),
-			" frames"
-		)
-	
 	GameProgress.submit_level_result(level_id, RunHistory.run_elapsed_time,RunHistory.level_death_count, RunHistory.current_run)
 	RunHistory.complete_run()
 	
@@ -79,7 +75,7 @@ func _on_end_level_door_exit_to_next_level(body: Node2D) -> void:
 	
 	player.visible = false
 	
-	hide_replayable_enemies()
+	hide_replayable_objects()
 	
 	replay_elapsed_time = 0.0
 	is_replay_active = true
@@ -93,10 +89,13 @@ func spawn_ghosts() -> void:
 		$Ghosts.add_child(ghost)
 		ghost.setup(run.player_frames)
 		
-		for enemy_id in run.enemy_frames:		
-			var enemy_ghost = ENEMY_REPLAY_SCENE.instantiate()
-			$Ghosts.add_child(enemy_ghost)
-			enemy_ghost.setup(run.enemy_frames[enemy_id])
+		for object_id in run.object_frames:		
+			var object_ghost = OBJECT_REPLAY_SCENE.instantiate()
+			$Ghosts.add_child(object_ghost)
+			object_ghost.setup(
+					run.object_frames[object_id],
+					replay_visuals[object_id]
+				)
 		
 	
 	if RunHistory.successful_run:
@@ -106,17 +105,21 @@ func spawn_ghosts() -> void:
 		ghost.replay_finished.connect(_on_successful_replay_finished)
 		camera.set_target(ghost)
 		
-		for enemy_id in RunHistory.successful_run.enemy_frames:
-			var enemy_ghost = ENEMY_REPLAY_SCENE.instantiate()
-			$Ghosts.add_child(enemy_ghost)
-			enemy_ghost.setup(RunHistory.successful_run.enemy_frames[enemy_id])
+		for object_id in RunHistory.successful_run.object_frames:
+			var object_ghost = OBJECT_REPLAY_SCENE.instantiate()
+			$Ghosts.add_child(object_ghost)
+			object_ghost.setup(
+					RunHistory.successful_run.object_frames[object_id],
+					replay_visuals[object_id]
+				)
 		
 		
 
-func hide_replayable_enemies() -> void:
-	for enemy in replayable_objects:
-		if is_instance_valid(enemy):
-			enemy.visible = false
+func hide_replayable_objects() -> void:
+	for object in replayable_objects:
+		# this will have to adjust depending on enemy or platform etc.
+		if is_instance_valid(object):
+			object.visible = false
 		
 		
 func _on_successful_replay_finished() -> void:

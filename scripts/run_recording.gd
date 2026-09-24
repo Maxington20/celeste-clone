@@ -3,4 +3,4 @@ class_name RunRecording
 
 
 var player_frames: Array[ReplayFrame] = []
-var enemy_frames: Dictionary[int, Array] = {}
+var object_frames: Dictionary[int, Array] = {}
