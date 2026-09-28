@@ -44,7 +44,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	if RunHistory.is_run_active:
-		RunHistory.record_frame(player.global_position, player.animated_sprite.animation)
+		RunHistory.record_frame(
+			player.global_position,
+			player.animated_sprite.animation,
+			player.animated_sprite.flip_h,
+			player.animated_sprite.position
+		)
 		
 		for object in replayable_objects:
 			if is_instance_valid(object):

@@ -2,43 +2,46 @@ extends Node2D
 
 signal replay_finished
 
-@onready var animation_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var frames: Array[ReplayFrame] = []
 var frame_index := 0
-var successful := false
+var is_successful_run := false
 
 
-func setup(run_frames: Array[ReplayFrame], was_successful: bool = false) -> void:
+func setup(
+	run_frames: Array[ReplayFrame],
+	successful_run: bool = false
+) -> void:
 	frames = run_frames.duplicate()
+	is_successful_run = successful_run
 	frame_index = 0
-	successful = was_successful
 
 	if !frames.is_empty():
-		global_position = frames[0].position
+		var first_frame := frames[0]
+
+		global_position = first_frame.position
+		animated_sprite.animation = first_frame.animation
+		animated_sprite.flip_h = first_frame.flip_h
+		animated_sprite.position = first_frame.sprite_position
 
 
 func _physics_process(_delta: float) -> void:
 	if frame_index >= frames.size():
-		if successful:
+		if is_successful_run:
 			replay_finished.emit()
-			set_physics_process(false)
-		else:
-			queue_free()
 
+		queue_free()
 		return
 
 	var replay_frame := frames[frame_index]
 
 	global_position = replay_frame.position
-	animation_sprite.play(replay_frame.animation)
 
-	# Match your player's dash sprite offset
-	if replay_frame.animation == &"dash_left":
-		animation_sprite.position.x = 6
-	elif replay_frame.animation == &"dash_right":
-		animation_sprite.position.x = -6
-	else:
-		animation_sprite.position.x = 0
+	if animated_sprite.animation != replay_frame.animation:
+		animated_sprite.play(replay_frame.animation)
+
+	animated_sprite.flip_h = replay_frame.flip_h
+	animated_sprite.position = replay_frame.sprite_position
 
 	frame_index += 1

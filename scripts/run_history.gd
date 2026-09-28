@@ -17,9 +17,19 @@ func start_run() -> void:
 	is_run_active = true
 	
 	
-func record_frame(position: Vector2, animation: StringName) -> void:
+func record_frame(
+	position: Vector2,
+	animation: StringName,
+	flip_h: bool,
+	sprite_position: Vector2
+) -> void:
 	current_run.append(
-		ReplayFrame.new(position, animation)
+		ReplayFrame.new(
+			position,
+			animation,
+			flip_h,
+			sprite_position
+		)
 	)
 
 func record_object_frame(id: int, position: Vector2, _animation: StringName, scale: Vector2, visual_position: Vector2) -> void:
