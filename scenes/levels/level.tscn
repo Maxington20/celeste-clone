@@ -52,5 +52,9 @@ text = "Time: 0.00 s"
 layout_mode = 2
 text = "Deaths: 0"
 
+[node name="DashCount" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=176924239]
+layout_mode = 2
+text = "Dashes: "
+
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="exit_to_next_level" from="EndLevelDoor" to="." method="_on_end_level_door_exit_to_next_level"]

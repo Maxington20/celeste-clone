@@ -13,23 +13,33 @@ var start_position: Vector2
 func _ready() -> void:
 	start_position = global_position
 
-func _physics_process(delta: float) -> void:
-	
-	velocity.x = move_speed *  direction
-	
-		
-	if abs(global_position.x - start_position.x) >= travel_distance:
-		start_position = global_position
-		direction *= -1
-		
+
+func _physics_process(_delta: float) -> void:
+	velocity.x = move_speed * direction
+
 	move_and_slide()
+
+	# Turn around if something blocks the walker.
+	if is_on_wall():
+		reverse_direction()
+
+	# Turn around after travelling the configured patrol distance.
+	elif abs(global_position.x - start_position.x) >= travel_distance:
+		reverse_direction()
+
+
+func reverse_direction() -> void:
+	start_position = global_position
+	direction *= -1
 
 
 func _on_stomp_area_body_entered(body: Node2D) -> void:
 	call_deferred("disable_collision_layers")
 	body.velocity.y = bounce_velocity
+
 	var tween = create_tween()
 	tween.tween_property($Visuals, "scale", Vector2.ZERO, 0.2)
+
 	await tween.finished
 	queue_free()
 
