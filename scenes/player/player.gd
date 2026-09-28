@@ -28,7 +28,7 @@ var jump_released := false
 var air_dash_available := true
 var wall_coyote_timer := 0.0
 var last_wall_normal := Vector2.ZERO
-var last_faciing_direction := 1.0
+var last_facing_direction := 1.0
 
 var is_dashing := false
 var dash_timer := 0.0
@@ -66,9 +66,8 @@ func _physics_process(delta: float) -> void:
 		var input_direction := Input.get_axis("move_left", "move_right")
 
 		if input_direction != 0:
-			
-			last_faciing_direction = input_direction
-			
+			last_facing_direction = input_direction
+
 			dash_direction = input_direction
 			dash_timer = DASH_DURATION
 			is_dashing = true
@@ -93,6 +92,10 @@ func _physics_process(delta: float) -> void:
 	if wall_coyote_timer > 0 and Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
 		velocity.x = last_wall_normal.x * WALL_JUMP_PUSH
+
+		# Face the direction we're jumping
+		if last_wall_normal.x != 0:
+			last_facing_direction = last_wall_normal.x
 
 		wall_coyote_timer = 0
 		jump_buffer_timer = 0
@@ -122,9 +125,8 @@ func _physics_process(delta: float) -> void:
 
 	if !wall_jump_this_frame:
 		if direction != 0:
-			
-			last_faciing_direction = direction
-			
+			last_facing_direction = direction
+
 			var acceleration := ACCELERATION
 
 			if !is_on_floor():
@@ -155,29 +157,45 @@ func _physics_process(delta: float) -> void:
 
 
 func animate_player(direction: float) -> void:
+	# Dash has highest priority
 	if is_dashing:
-		if dash_direction < 0:
-			animated_sprite.play("dash_left")
-			animated_sprite.position.x = 6
+		animated_sprite.play("dash")
+		animated_sprite.flip_h = dash_direction < 0
+
+	# Wall animations
+	elif is_on_wall() and !is_on_floor():
+		var wall_normal := get_wall_normal()
+
+		# Source animation has the wall on the LEFT.
+		# A positive normal means the wall is on the LEFT.
+		animated_sprite.flip_h = wall_normal.x < 0
+
+		if velocity.y > 0:
+			animated_sprite.play("wall_slide")
 		else:
-			animated_sprite.play("dash_right")
-			animated_sprite.position.x = -6
+			animated_sprite.play("wall_contact")
 
-	elif direction < 0 and is_on_floor():
-		animated_sprite.play("move_left")
-		animated_sprite.position.x = 0
+	# Airborne
+	elif !is_on_floor():
+		animated_sprite.flip_h = last_facing_direction < 0
 
-	elif direction > 0 and is_on_floor():
-		animated_sprite.play("move_right")
-		animated_sprite.position.x = 0
-
-	elif direction == 0:
-		if last_faciing_direction < 0:
-			animated_sprite.play("idle_left")
+		if velocity.y < -200:
+			animated_sprite.play("jump_start")
+		elif velocity.y < 100:
+			animated_sprite.play("jump_transition")
 		else:
-			animated_sprite.play("idle_right")
-		animated_sprite.position.x = 0
-		
-		
+			animated_sprite.play("jump_fall")
+
+	# Running on ground
+	elif direction != 0:
+		animated_sprite.play("run")
+		animated_sprite.flip_h = direction < 0
+
+	# Idle
+	else:
+		animated_sprite.play("idle")
+		animated_sprite.flip_h = last_facing_direction < 0
+
+
 func die() -> void:
 	player_died.emit()
