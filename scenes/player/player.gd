@@ -19,11 +19,11 @@ const WALL_JUMP_PUSH := 300.0
 const TURN_ACCELERATION := 2000.0
 const DASH_SPEED := 1000.0
 const WALL_COYOTE_TIME := 0.1
-const DASH_DURATION := 0.25
+const DASH_DURATION := 0.5
 
 # Visual adjustment for wall animations.
-# This is applied relative to the AnimatedSprite2D position
-# that is already configured in the editor.
+# Applied relative to the AnimatedSprite2D position
+# configured in the editor.
 const WALL_SPRITE_OFFSET := Vector2(10, 10)
 
 var coyote_timer := 0.0
@@ -191,7 +191,7 @@ func animate_player(direction: float) -> void:
 
 		animated_sprite.flip_h = !wall_is_left
 
-		# Move the artwork TOWARD the wall.
+		# Move the artwork toward the wall.
 		if wall_is_left:
 			animated_sprite.position = sprite_base_position + Vector2(
 				-WALL_SPRITE_OFFSET.x,
