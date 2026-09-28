@@ -19,7 +19,12 @@ const WALL_JUMP_PUSH := 300.0
 const TURN_ACCELERATION := 2000.0
 const DASH_SPEED := 1000.0
 const WALL_COYOTE_TIME := 0.1
-const DASH_DURATION := 0.12
+const DASH_DURATION := 0.25
+
+# Visual adjustment for wall animations.
+# This is applied relative to the AnimatedSprite2D position
+# that is already configured in the editor.
+const WALL_SPRITE_OFFSET := Vector2(10, 10)
 
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
@@ -33,6 +38,13 @@ var last_facing_direction := 1.0
 var is_dashing := false
 var dash_timer := 0.0
 var dash_direction := 0.0
+
+var sprite_base_position: Vector2
+
+
+func _ready() -> void:
+	# Preserve the position configured in the editor.
+	sprite_base_position = animated_sprite.position
 
 
 func _physics_process(delta: float) -> void:
@@ -139,6 +151,7 @@ func _physics_process(delta: float) -> void:
 				direction * SPEED,
 				acceleration * delta
 			)
+
 		else:
 			var deceleration := GROUND_DECELERATION
 
@@ -159,6 +172,7 @@ func _physics_process(delta: float) -> void:
 func animate_player(direction: float) -> void:
 	# Dash has highest priority
 	if is_dashing:
+		animated_sprite.position = sprite_base_position
 		animated_sprite.play("dash")
 		animated_sprite.flip_h = dash_direction < 0
 
@@ -167,8 +181,27 @@ func animate_player(direction: float) -> void:
 		var wall_normal := get_wall_normal()
 
 		# Source animation has the wall on the LEFT.
-		# A positive normal means the wall is on the LEFT.
-		animated_sprite.flip_h = wall_normal.x < 0
+		#
+		# Positive wall normal:
+		#     wall is on LEFT
+		#
+		# Negative wall normal:
+		#     wall is on RIGHT
+		var wall_is_left := wall_normal.x > 0
+
+		animated_sprite.flip_h = !wall_is_left
+
+		# Move the artwork TOWARD the wall.
+		if wall_is_left:
+			animated_sprite.position = sprite_base_position + Vector2(
+				-WALL_SPRITE_OFFSET.x,
+				WALL_SPRITE_OFFSET.y
+			)
+		else:
+			animated_sprite.position = sprite_base_position + Vector2(
+				WALL_SPRITE_OFFSET.x,
+				WALL_SPRITE_OFFSET.y
+			)
 
 		if velocity.y > 0:
 			animated_sprite.play("wall_slide")
@@ -177,6 +210,7 @@ func animate_player(direction: float) -> void:
 
 	# Airborne
 	elif !is_on_floor():
+		animated_sprite.position = sprite_base_position
 		animated_sprite.flip_h = last_facing_direction < 0
 
 		if velocity.y < -200:
@@ -188,11 +222,13 @@ func animate_player(direction: float) -> void:
 
 	# Running on ground
 	elif direction != 0:
+		animated_sprite.position = sprite_base_position
 		animated_sprite.play("run")
 		animated_sprite.flip_h = direction < 0
 
 	# Idle
 	else:
+		animated_sprite.position = sprite_base_position
 		animated_sprite.play("idle")
 		animated_sprite.flip_h = last_facing_direction < 0
 

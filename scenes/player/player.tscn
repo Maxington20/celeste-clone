@@ -523,7 +523,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"run",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -618,11 +618,10 @@ collision_mask = 5
 script = ExtResource("1_dovo2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=71310545]
-position = Vector2(-3, -18)
+position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_jvmx5")
-animation = &"dash"
-frame_progress = 0.040016178
+animation = &"wall_slide"
+frame_progress = 0.8818017
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1774396868]
-position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_jvmx5")
