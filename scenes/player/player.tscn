@@ -621,7 +621,8 @@ script = ExtResource("1_dovo2")
 position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_jvmx5")
 animation = &"dash"
-frame_progress = 0.42900854
+frame = 6
+frame_progress = 0.9926081
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1774396868]
 shape = SubResource("RectangleShape2D_jvmx5")

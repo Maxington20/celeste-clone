@@ -43,7 +43,7 @@ var sprite_base_position: Vector2
 
 
 func _ready() -> void:
-	# Preserve the position configured in the editor.
+	# Preserve the sprite position configured in the editor.
 	sprite_base_position = animated_sprite.position
 
 
@@ -105,7 +105,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		velocity.x = last_wall_normal.x * WALL_JUMP_PUSH
 
-		# Face the direction we're jumping
+		# Face the direction we're jumping.
 		if last_wall_normal.x != 0:
 			last_facing_direction = last_wall_normal.x
 
@@ -123,7 +123,7 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_timer = 0
 		jump_cut = false
 
-	# Cut the jump short if the button has been released
+	# Cut the jump short if the button has been released.
 	if jump_released and velocity.y < 0 and !jump_cut:
 		velocity.y *= 0.5
 		jump_cut = true
@@ -170,7 +170,7 @@ func _physics_process(delta: float) -> void:
 
 
 func animate_player(direction: float) -> void:
-	# Dash has highest priority
+	# Dash has highest priority.
 	if is_dashing:
 		animated_sprite.position = sprite_base_position
 		animated_sprite.play("dash")
