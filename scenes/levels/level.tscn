@@ -1,12 +1,80 @@
 [gd_scene format=3 uid="uid://btwwdjxc2xamk"]
 
 [ext_resource type="Script" uid="uid://cr5cpxxyjxslm" path="res://scenes/levels/level.gd" id="1_xb4v1"]
+[ext_resource type="Texture2D" uid="uid://2nv50bfpu3at" path="res://assets/GrassLand_Background_1.png" id="2_d4w6o"]
 [ext_resource type="PackedScene" uid="uid://d3cx758c7e1mg" path="res://scenes/player/player.tscn" id="2_urvlt"]
 [ext_resource type="Script" uid="uid://24q6e53w05on" path="res://scenes/levels/camera_controller.gd" id="2_xb4v1"]
+[ext_resource type="Texture2D" uid="uid://dejyh324gectx" path="res://assets/art/GrassLand_Background_2.png" id="3_rmjfq"]
+[ext_resource type="Texture2D" uid="uid://d3lpxl3brhnbt" path="res://assets/art/GrassLand_Background_3.png" id="4_7pb6i"]
 [ext_resource type="PackedScene" uid="uid://bjki4ggea7ncg" path="res://scenes/goodies/end_level_door.tscn" id="4_mbbpy"]
+[ext_resource type="TileSet" uid="uid://diqt6ftmy3pr8" path="res://assets/art/tilesets/GrassDirtGenericTileSet.tres" id="4_urvlt"]
+[ext_resource type="Texture2D" uid="uid://dku4vgcsyvm3y" path="res://assets/art/GrassLand_Background_4.png" id="5_xfk5q"]
+[ext_resource type="Texture2D" uid="uid://clhqq80xgpa1x" path="res://assets/art/GrassLand_Background_5.png" id="6_qogh7"]
 
 [node name="Level" type="Node2D" unique_id=1559134291]
 script = ExtResource("1_xb4v1")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1186123611]
+layer = -10
+
+[node name="BackgroundContainer" type="Control" parent="Background" unique_id=379191988]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Sky" type="TextureRect" parent="Background/BackgroundContainer" unique_id=1300340092]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_d4w6o")
+expand_mode = 1
+
+[node name="FarTrees" type="TextureRect" parent="Background/BackgroundContainer" unique_id=607833063]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_rmjfq")
+expand_mode = 1
+
+[node name="FarHills" type="TextureRect" parent="Background/BackgroundContainer" unique_id=1206930096]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_7pb6i")
+expand_mode = 1
+
+[node name="NearHills" type="TextureRect" parent="Background/BackgroundContainer" unique_id=1470570185]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_xfk5q")
+expand_mode = 1
+
+[node name="ForegroundGrass" type="TextureRect" parent="." unique_id=1530046340]
+z_index = -5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 110.0
+offset_right = 1280.0
+offset_bottom = 734.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_qogh7")
+expand_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=603920288]
 zoom = Vector2(0.8, 0.8)
@@ -25,6 +93,9 @@ position = Vector2(-1019, 559)
 [node name="Geometry" type="Node2D" parent="." unique_id=982877691]
 
 [node name="Hazards" type="Node2D" parent="." unique_id=635117761]
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=1176581584]
+tile_set = ExtResource("4_urvlt")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1830744566]
 
