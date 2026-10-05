@@ -137,3 +137,8 @@ func _on_successful_replay_finished() -> void:
 func _on_player_player_died() -> void:
 	RunHistory.fail_run()
 	get_tree().call_deferred("reload_current_scene")
+
+
+func _on_out_of_bounds_body_entered(body: Node2D) -> void:
+	if body.has_method("die"):
+		body.die()
