@@ -34,6 +34,9 @@ func reverse_direction() -> void:
 
 
 func _on_stomp_area_body_entered(body: Node2D) -> void:
+	if not body is CharacterBody2D:
+		return
+
 	call_deferred("disable_collision_layers")
 	body.velocity.y = bounce_velocity
 
