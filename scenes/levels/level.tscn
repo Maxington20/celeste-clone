@@ -90,8 +90,6 @@ offset_bottom = 717.0
 [node name="Player" parent="." unique_id=114236942 instance=ExtResource("2_urvlt")]
 position = Vector2(-1019, 559)
 
-[node name="Geometry" type="Node2D" parent="." unique_id=982877691]
-
 [node name="Hazards" type="Node2D" parent="." unique_id=635117761]
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=1176581584]
