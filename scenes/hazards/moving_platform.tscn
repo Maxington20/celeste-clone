@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dv88isyr72npe"]
+
+[ext_resource type="TileSet" uid="uid://diqt6ftmy3pr8" path="res://assets/art/tilesets/GrassDirtGenericTileSet.tres" id="1_n02kw"]
+[ext_resource type="Script" uid="uid://v8u23bvmkut1" path="res://scenes/hazards/moving_platform.gd" id="1_sinq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmx5"]
+size = Vector2(64, 16)
+
+[node name="MovingPlatform" type="AnimatableBody2D" unique_id=1350448034]
+script = ExtResource("1_sinq8")
+
+[node name="PlatformTiles" type="TileMapLayer" parent="." unique_id=474986115]
+tile_map_data = PackedByteArray(0, 0, 254, 255, 255, 255, 0, 0, 0, 0, 4, 0, 0, 0, 255, 255, 255, 255, 0, 0, 1, 0, 4, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 4, 0, 0, 0, 1, 0, 255, 255, 0, 0, 2, 0, 4, 0, 0, 0)
+tile_set = ExtResource("1_n02kw")
+collision_enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293931546]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_jvmx5")
