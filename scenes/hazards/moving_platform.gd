@@ -3,6 +3,8 @@ extends AnimatableBody2D
 @export var travel_offset := Vector2(200,0)
 @export var move_speed := 100.0
 @export var pause_duration := 0.5
+@export var replay_id : int
+@export var replay_visual: PackedScene
 
 var start_position: Vector2
 var target_position: Vector2
