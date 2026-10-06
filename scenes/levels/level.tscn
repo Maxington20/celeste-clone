@@ -120,14 +120,17 @@ layout_mode = 2
 
 [node name="TimeLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=913319933]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Time: 0.00 s"
 
 [node name="DeathLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=1207496839]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Deaths: 0"
 
 [node name="DashCount" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=176924239]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Dashes: "
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
